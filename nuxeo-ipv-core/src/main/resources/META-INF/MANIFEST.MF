@@ -1,0 +1,9 @@
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .
+Manifest-Version: 1.0
+Bundle-Vendor: org.nuxeo.ipv
+Bundle-Version: 1.0.0
+Bundle-Name: nuxeo-ipv-core
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.nuxeo.ipv.nuxeo-ipv-core;singleton=true
+Nuxeo-Component: OSGI-INF/ipvservice-service.xml

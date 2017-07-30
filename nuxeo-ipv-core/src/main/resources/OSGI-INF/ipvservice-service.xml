@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.ipv.IpvService" version="1.0">
+
+  <implementation class="org.nuxeo.ipv.IpvServiceImpl" />
+
+  <service>
+    <provide interface="org.nuxeo.ipv.IpvService" />
+  </service>
+</component>
