@@ -10,8 +10,4 @@ public interface IpvService {
 
     //the name of the IPV workflow to be invoked when a video is uploaded
     public String getDefaultIPVProcessName();
-    
-    //the name of the IPV workflow instance to be invoked when a video is uploaded; lets put the 
-    //date like in their UI
-    public String getDefaultIPVDefId();
 }

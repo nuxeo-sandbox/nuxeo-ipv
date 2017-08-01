@@ -2,7 +2,6 @@ package org.nuxeo.ipv;
 
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -141,9 +140,5 @@ public class IpvServiceImpl extends DefaultComponent implements IpvService {
     @Override
     public String getDefaultIPVProcessName() {
         return Framework.getProperty("nuxeo.ipv.process.name", "Nuxeo Test");
-    }
-
-    public String getDefaultIPVDefId() {
-        return getDefaultIPVProcessName() + new Date();
     }
 }
