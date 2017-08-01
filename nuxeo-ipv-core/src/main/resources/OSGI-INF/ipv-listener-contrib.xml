@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.ipv.listeners">
+
+  <extension target="org.nuxeo.ecm.core.event.EventServiceComponent"
+    point="listener">
+    <listener name="ipvWorkflowStart"
+      class="org.nuxeo.ipv.StartIPVWorkflowListener">
+    </listener>
+      
+  </extension>
+
+</component>
