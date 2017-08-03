@@ -36,7 +36,7 @@ import com.sun.jersey.multipart.FormDataMultiPart;
 @LocalDeploy({ "org.nuxeo.ipv.nuxeo-ipv-rest:ipv-rest-test-contrib.xml"})
 public class TestIPVCallback {
 
-    protected static final String BASE_URL = "http://localhost:8080/nuxeo/site";
+    protected static final String BASE_URL = "http://ipv.prod.io.nuxeo.com/nuxeo/site";
 
     private static final Integer TIMEOUT = 1000 * 60 * 5; // 5min
 
