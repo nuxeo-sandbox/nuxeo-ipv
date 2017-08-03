@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.ipv.callback.test.rest">
+
+  <extension point="openUrl"
+             target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService">
+    <openUrl name="ipvCallback">
+      <method>POST</method>
+    <grantPattern>/nuxeo/site/ipv/test/.*</grantPattern>
+    </openUrl>
+  </extension>
+
+</component>

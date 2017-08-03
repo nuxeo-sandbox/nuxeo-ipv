@@ -1,0 +1,10 @@
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .
+Manifest-Version: 1.0
+Bundle-Vendor: org.nuxeo.ipv
+Bundle-Version: 1.0.0
+Bundle-Name: nuxeo-ipv-rest
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.nuxeo.ipv.nuxeo-ipv-rest;singleton=true
+Nuxeo-Component: OSGI-INF/ipv-rest-contrib.xml
+Nuxeo-WebModule: org.nuxeo.ecm.webengine.app.WebEngineModule;headless=true;name=ipv;package=org/nuxeo/ipv/callback
