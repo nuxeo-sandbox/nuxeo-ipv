@@ -1,10 +1,17 @@
 package org.nuxeo.ipv;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -12,12 +19,15 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.nuxeo.ecm.core.api.NuxeoException;
+import org.nuxeo.ipv.asset.generated.xml.IPVAsset;
 import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
 import org.nuxeo.runtime.model.DefaultComponent;
 
 public class IpvServiceImpl extends DefaultComponent implements IpvService {
+
+    public Log log = LogFactory.getLog(IpvServiceImpl.class);
 
     /**
      * Component activated notification. Called when the component is activated. All component dependencies are resolved
@@ -140,5 +150,20 @@ public class IpvServiceImpl extends DefaultComponent implements IpvService {
     @Override
     public String getDefaultIPVProcessName() {
         return Framework.getProperty("nuxeo.ipv.process.name", "Nuxeo Test");
+    }
+
+    @Override
+    public IPVAsset unmarshallIPVXML(File xmlFile) {
+
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance("org.nuxeo.ipv.asset.generated.xml");
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+            return (org.nuxeo.ipv.asset.generated.xml.IPVAsset) unmarshaller.unmarshal(xmlFile);
+
+        } catch (JAXBException e) {
+            log.error("Can not unmarshall XML document");
+            throw new NuxeoException(e);
+        }
+
     }
 }

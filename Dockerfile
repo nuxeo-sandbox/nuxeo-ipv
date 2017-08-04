@@ -1,4 +1,4 @@
-FROM nuxeo:8.10
+FROM nuxeo:9.2
 
 WORKDIR /tmp 
 ADD nuxeo-ipv-core/target/nuxeo-ipv-core-1.0-SNAPSHOT.jar /tmp/nuxeo-ipv-core-1.0-SNAPSHOT.jar

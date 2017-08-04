@@ -1,35 +1,35 @@
 package org.nuxeo.ipv.callback;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.nuxeo.common.utils.FileUtils;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.Blobs;
+import org.nuxeo.ecm.core.api.NuxeoException;
+import org.nuxeo.ecm.core.api.impl.blob.StringBlob;
 import org.nuxeo.ecm.webengine.WebException;
 import org.nuxeo.ecm.webengine.forms.FormData;
 import org.nuxeo.ecm.webengine.model.WebObject;
 import org.nuxeo.ecm.webengine.model.impl.AbstractResource;
 import org.nuxeo.ecm.webengine.model.impl.ResourceTypeImpl;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+import org.nuxeo.ipv.IpvService;
+import org.nuxeo.ipv.asset.generated.xml.IPVAsset;
+import org.nuxeo.runtime.api.Framework;
 
 @Path("/ipv")
 @WebObject(type = "ipv")
@@ -41,8 +41,9 @@ public class IPVCallback extends AbstractResource<ResourceTypeImpl> {
         return Response.status(Response.Status.OK).build();
     }
 
+    // IPV does not know how to send a file
     @POST
-    @Path("callback")
+    @Path("ipvcallback")
     public Response doPost(@Context HttpServletRequest request) {
         String nuxeoId = null;
         String curatorId = null;
@@ -71,11 +72,35 @@ public class IPVCallback extends AbstractResource<ResourceTypeImpl> {
         if (nuxeoId == null) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
-
+        IPVAsset ipvAsset = Framework.getLocalService(IpvService.class).unmarshallIPVXML(xml.getFile());
         return Response.status(Status.OK).build();
-
     }
 
+    // accept string as IPV does not know how to send a file
+    @POST
+    @Path("callback")
+    public Response doPostCallback(@Context HttpServletRequest request, @FormParam(value = "nuxeoId") String nuxeoId,
+            @FormParam(value = "curatorId") String curatorId, @FormParam(value = "metadata") String metadata) {
+        if (nuxeoId == null) {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+        }
+        if (metadata == null) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+       
+        File tmpXML = null;;
+        try {
+            tmpXML = Framework.createTempFile("ipv", "xml");
+            FileUtils.writeFile(tmpXML, metadata);
+        } catch (IOException e) {
+            throw new NuxeoException(e);
+        }
+     
+        
+        // unmarshall to see if works
+        IPVAsset ipvAsset = Framework.getLocalService(IpvService.class).unmarshallIPVXML(tmpXML);
+        return Response.status(Status.OK).build();
+    }
 
     protected Blob getBlob(FileItem item) {
         try {

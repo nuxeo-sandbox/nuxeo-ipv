@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+         <!-- XML Schema Generated from XML Document on Thu Aug 03 2017 15:59:20 GMT-0700 (PDT) -->
+         <!-- with XmlGrid.net Free Online Service http://xmlgrid.net -->
+         <xs:element name="File">
+               <xs:complexType>
+                     <xs:sequence>
+                           <xs:element name="track" maxOccurs="unbounded">
+                                 <xs:complexType>
+                                       <xs:sequence>
+                                             <xs:element name="Complete_name" type="xs:string"></xs:element>
+                                             <xs:element name="Format" type="xs:string"></xs:element>
+                                             <xs:element name="Format_profile" type="xs:string"></xs:element>
+                                             <xs:element name="Codec_ID" type="xs:string"></xs:element>
+                                             <xs:element name="File_size" type="xs:string"></xs:element>
+                                             <xs:element name="Duration" type="xs:string"></xs:element>
+                                             <xs:element name="Overall_bit_rate_mode" type="xs:string"></xs:element>
+                                             <xs:element name="Overall_bit_rate" type="xs:string"></xs:element>
+                                             <xs:element name="Encoded_date" type="xs:string"></xs:element>
+                                             <xs:element name="Tagged_date" type="xs:string"></xs:element>
+                                             <xs:element name="Writing_library" type="xs:string"></xs:element>
+                                             <xs:element name="Media_UUID" type="xs:string"></xs:element>
+                                       </xs:sequence>
+                                       <xs:attribute name="type" type="xs:string"></xs:attribute>
+                                 </xs:complexType>
+                           </xs:element>
+                     </xs:sequence>
+               </xs:complexType>
+         </xs:element>
+   </xs:schema>
