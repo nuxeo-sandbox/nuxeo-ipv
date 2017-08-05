@@ -1,30 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-   <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
-         <!-- XML Schema Generated from XML Document on Thu Aug 03 2017 15:59:20 GMT-0700 (PDT) -->
-         <!-- with XmlGrid.net Free Online Service http://xmlgrid.net -->
-         <xs:element name="File">
-               <xs:complexType>
-                     <xs:sequence>
-                           <xs:element name="track" maxOccurs="unbounded">
-                                 <xs:complexType>
-                                       <xs:sequence>
-                                             <xs:element name="Complete_name" type="xs:string"></xs:element>
-                                             <xs:element name="Format" type="xs:string"></xs:element>
-                                             <xs:element name="Format_profile" type="xs:string"></xs:element>
-                                             <xs:element name="Codec_ID" type="xs:string"></xs:element>
-                                             <xs:element name="File_size" type="xs:string"></xs:element>
-                                             <xs:element name="Duration" type="xs:string"></xs:element>
-                                             <xs:element name="Overall_bit_rate_mode" type="xs:string"></xs:element>
-                                             <xs:element name="Overall_bit_rate" type="xs:string"></xs:element>
-                                             <xs:element name="Encoded_date" type="xs:string"></xs:element>
-                                             <xs:element name="Tagged_date" type="xs:string"></xs:element>
-                                             <xs:element name="Writing_library" type="xs:string"></xs:element>
-                                             <xs:element name="Media_UUID" type="xs:string"></xs:element>
-                                       </xs:sequence>
-                                       <xs:attribute name="type" type="xs:string"></xs:attribute>
-                                 </xs:complexType>
-                           </xs:element>
-                     </xs:sequence>
-               </xs:complexType>
-         </xs:element>
-   </xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <!-- XML Schema Generated from XML Document on Thu Aug 03 2017 15:59:20 
+    GMT-0700 (PDT) -->
+  <!-- with XmlGrid.net Free Online Service http://xmlgrid.net -->
+  <xs:element name="File">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="track" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="Complete_name" />
+              <xs:element type="xs:string" name="Format" />
+              <xs:element type="xs:string" name="Format_profile" />
+              <xs:element type="xs:string" name="Codec_ID" />
+              <xs:element type="xs:string" name="File_size" />
+              <xs:element type="xs:string" name="Duration" />
+              <xs:element type="xs:string" name="Overall_bit_rate_mode" />
+              <xs:element type="xs:string" name="Overall_bit_rate" />
+              <xs:element type="xs:string" name="Encoded_date" />
+              <xs:element type="xs:string" name="Tagged_date" />
+              <xs:element type="xs:string" name="Writing_library" />
+              <xs:element type="xs:string" name="Media_UUID" />
+              <xs:element type="xs:byte" name="ID" />
+              <xs:element type="xs:string" name="Format_version" />
+              <xs:element type="xs:string" name="Bit_rate_mode" />
+              <xs:element type="xs:string" name="Bit_rate" />
+              <xs:element type="xs:string" name="Width" />
+              <xs:element type="xs:string" name="Clean_aperture_width" />
+              <xs:element type="xs:string" name="Height" />
+              <xs:element type="xs:string" name="Clean_aperture_height" />
+              <xs:element type="xs:string" name="Display_aspect_ratio" />
+              <xs:element type="xs:string"
+                name="Clean_aperture_display_aspect_ratio" />
+              <xs:element type="xs:string" name="Frame_rate_mode" />
+              <xs:element type="xs:string" name="Frame_rate" />
+              <xs:element type="xs:string" name="Chroma_subsampling" />
+              <xs:element type="xs:string" name="Scan_type" />
+              <xs:element type="xs:float" name="Bits__Pixel_Frame_" />
+              <xs:element type="xs:string" name="Stream_size" />
+              <xs:element type="xs:string" name="Language" />
+              <xs:element type="xs:string" name="Color_primaries" />
+              <xs:element type="xs:string" name="Transfer_characteristics" />
+              <xs:element type="xs:string" name="Matrix_coefficients" />
+              <xs:element type="xs:string" name="Format_settings__Endianness" />
+              <xs:element type="xs:string" name="Format_settings__Sign" />
+              <xs:element type="xs:string" name="Channel_s_" />
+              <xs:element type="xs:string" name="Channel_positions" />
+              <xs:element type="xs:string" name="Sampling_rate" />
+              <xs:element type="xs:string" name="Bit_depth" />
+              <xs:element type="xs:string" name="Time_code_of_first_frame" />
+              <xs:element type="xs:string" name="Time_code__striped" />
+
+            </xs:sequence>
+            <xs:attribute name="type" type="xs:string"></xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

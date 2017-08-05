@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+
+<xs:schema targetNamespace="http://www.nuxeo.org/ecm/schemas/ipv/"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ipv="http://www.nuxeo.org/ecm/schemas/ipv/">
+  <xs:include schemaLocation="core-types.xsd" />
+
+  <xs:complexType name="generalTrack">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Complete_name" />
+      <xs:element type="xs:string" name="Format" />
+      <xs:element type="xs:string" name="Format_profile" />
+      <xs:element type="xs:string" name="Codec_ID" />
+      <xs:element type="xs:string" name="File_size" />
+      <xs:element type="xs:string" name="Duration" />
+      <xs:element type="xs:string" name="Overall_bit_rate_mode" />
+      <xs:element type="xs:string" name="Overall_bit_rate" />
+      <xs:element type="xs:string" name="Encoded_date" />
+      <xs:element type="xs:string" name="Tagged_date" />
+      <xs:element type="xs:string" name="Writing_library" />
+      <xs:element type="xs:string" name="Media_UUID" />
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="videoTrack">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Format" />
+      <xs:element type="xs:string" name="Format_version" />
+      <xs:element type="xs:short" name="Format_profile" />
+      <xs:element type="xs:string" name="Codec_ID" />
+      <xs:element type="xs:string" name="Duration" />
+      <xs:element type="xs:string" name="Bit_rate_mode" />
+      <xs:element type="xs:string" name="Bit_rate" />
+      <xs:element type="xs:string" name="Width" />
+      <xs:element type="xs:string" name="Clean_aperture_width" />
+      <xs:element type="xs:string" name="Height" />
+      <xs:element type="xs:string" name="Clean_aperture_height" />
+      <xs:element type="xs:string" name="Display_aspect_ratio" />
+      <xs:element type="xs:string" name="Clean_aperture_display_aspect_ratio" />
+      <xs:element type="xs:string" name="Frame_rate_mode" />
+      <xs:element type="xs:string" name="Frame_rate" />
+      <xs:element type="xs:string" name="Chroma_subsampling" />
+      <xs:element type="xs:string" name="Scan_type" />
+      <xs:element type="xs:float" name="Bits__Pixel_Frame_" />
+      <xs:element type="xs:string" name="Stream_size" />
+      <xs:element type="xs:string" name="Writing_library" />
+      <xs:element type="xs:string" name="Language" />
+      <xs:element type="xs:string" name="Encoded_date" />
+      <xs:element type="xs:string" name="Tagged_date" />
+      <xs:element type="xs:string" name="Color_primaries" />
+      <xs:element type="xs:string" name="Transfer_characteristics" />
+      <xs:element type="xs:string" name="Matrix_coefficients" />
+    </xs:sequence>
+  </xs:complexType>
+
+
+  <xs:complexType name="audioTrack">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Format" />
+      <xs:element type="xs:string" name="Format_settings__Endianness" />
+      <xs:element type="xs:string" name="Format_settings__Sign" />
+      <xs:element type="xs:string" name="Codec_ID" />
+      <xs:element type="xs:string" name="Duration" />
+      <xs:element type="xs:string" name="Bit_rate_mode" />
+      <xs:element type="xs:string" name="Bit_rate" />
+      <xs:element type="xs:string" name="Channel_s_" />
+      <xs:element type="xs:string" name="Channel_positions" />
+      <xs:element type="xs:string" name="Sampling_rate" />
+      <xs:element type="xs:string" name="Bit_depth" />
+      <xs:element type="xs:string" name="Stream_size" />
+      <xs:element type="xs:string" name="Language" />
+      <xs:element type="xs:string" name="Encoded_date" />
+      <xs:element type="xs:string" name="Tagged_date" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="otherTrack">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Type" />
+      <xs:element type="xs:string" name="Format" />
+      <xs:element type="xs:string" name="Duration" />
+      <xs:element type="xs:string" name="Time_code_of_first_frame" />
+      <xs:element type="xs:string" name="Time_code__striped" />
+      <xs:element type="xs:string" name="Language" />
+      <xs:element type="xs:string" name="Encoded_date" />
+      <xs:element type="xs:string" name="Tagged_date" />
+    </xs:sequence>
+  </xs:complexType>
+
+
+
+  <xs:complexType name="ipvtraks">
+    <xs:sequence>
+      <xs:element name="generalTrack" type="ipv:generalTrack" />
+      <xs:element name="videoTrack" type="ipv:videoTrack" />
+      <xs:element name="audioTrack" type="ipv:audioTrack" />
+      <xs:element name="otherTrack" type="ipv:otherTrack" />
+    </xs:sequence>
+  </xs:complexType>
+   
+  <xs:element name="ipvasset" type="ipv:ipvtraks" />
+  
+
+</xs:schema>
+
+

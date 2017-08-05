@@ -7,4 +7,6 @@ Bundle-Name: nuxeo-ipv-core
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: org.nuxeo.ipv.nuxeo-ipv-core;singleton=true
 Nuxeo-Component: OSGI-INF/ipvservice-service.xml,
- OSGI-INF/ipv-listener-contrib.xml
+ OSGI-INF/ipv-listener-contrib.xml,
+ OSGI-INF/ipv-types-contrib.xml,
+ OSGI-INF/ipvasset-adapter-contrib.xml

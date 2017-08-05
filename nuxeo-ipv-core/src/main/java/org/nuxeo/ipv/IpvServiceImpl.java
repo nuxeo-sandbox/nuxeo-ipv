@@ -18,8 +18,13 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.nuxeo.ecm.core.api.CoreInstance;
+import org.nuxeo.ecm.core.api.CoreSession;
+import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.core.api.NuxeoException;
-import org.nuxeo.ipv.asset.generated.xml.IPVAsset;
+import org.nuxeo.ipv.adapter.IpvAssetDocAdapter;
+import org.nuxeo.ipv.asset.generated.xml.IPVXMLAssetMapping;
 import org.nuxeo.runtime.api.Framework;
 import org.nuxeo.runtime.model.ComponentContext;
 import org.nuxeo.runtime.model.ComponentInstance;
@@ -153,17 +158,31 @@ public class IpvServiceImpl extends DefaultComponent implements IpvService {
     }
 
     @Override
-    public IPVAsset unmarshallIPVXML(File xmlFile) {
+    public IPVXMLAssetMapping unmarshallIPVXML(File xmlFile) {
 
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance("org.nuxeo.ipv.asset.generated.xml");
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            return (org.nuxeo.ipv.asset.generated.xml.IPVAsset) unmarshaller.unmarshal(xmlFile);
+            return (org.nuxeo.ipv.asset.generated.xml.IPVXMLAssetMapping) unmarshaller.unmarshal(xmlFile);
 
         } catch (JAXBException e) {
             log.error("Can not unmarshall XML document");
             throw new NuxeoException(e);
         }
 
+    }
+
+    @Override
+    public void attachIPVData(String docId, IPVXMLAssetMapping ipvAssert, String repoName) {
+        CoreInstance.doPrivileged(repoName, (CoreSession session) -> {
+            DocumentModel doc = session.getDocument(new IdRef(docId));
+            if (!doc.hasFacet(IPV_ASSET_FACET)) {
+                doc.addFacet(IPV_ASSET_FACET);
+                doc = session.saveDocument(doc);
+            }
+            IpvAssetDocAdapter ipvDoc = doc.getAdapter(IpvAssetDocAdapter.class);
+            ipvDoc.setIPVAsset(ipvAssert);
+            ipvDoc.save();
+        });
     }
 }

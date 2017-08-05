@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.ipv.adapters.ipvasset">
+
+  <extension target="org.nuxeo.ecm.core.api.DocumentAdapterService"
+    point="adapters">
+    <adapter class="org.nuxeo.ipv.adapter.IpvAssetDocAdapter" factory="org.nuxeo.ipv.adapter.IpvAssetDocAdapterFactory" />
+  </extension>
+
+</component>

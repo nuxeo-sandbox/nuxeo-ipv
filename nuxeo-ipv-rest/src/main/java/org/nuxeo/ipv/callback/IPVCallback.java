@@ -20,15 +20,16 @@ import org.apache.commons.logging.LogFactory;
 import org.nuxeo.common.utils.FileUtils;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.Blobs;
+import org.nuxeo.ecm.core.api.DocumentNotFoundException;
 import org.nuxeo.ecm.core.api.NuxeoException;
-import org.nuxeo.ecm.core.api.impl.blob.StringBlob;
+import org.nuxeo.ecm.core.api.repository.RepositoryManager;
 import org.nuxeo.ecm.webengine.WebException;
 import org.nuxeo.ecm.webengine.forms.FormData;
 import org.nuxeo.ecm.webengine.model.WebObject;
 import org.nuxeo.ecm.webengine.model.impl.AbstractResource;
 import org.nuxeo.ecm.webengine.model.impl.ResourceTypeImpl;
 import org.nuxeo.ipv.IpvService;
-import org.nuxeo.ipv.asset.generated.xml.IPVAsset;
+import org.nuxeo.ipv.asset.generated.xml.IPVXMLAssetMapping;
 import org.nuxeo.runtime.api.Framework;
 
 @Path("/ipv")
@@ -43,7 +44,7 @@ public class IPVCallback extends AbstractResource<ResourceTypeImpl> {
 
     // IPV does not know how to send a file
     @POST
-    @Path("ipvcallback")
+    @Path("callbackfile")
     public Response doPost(@Context HttpServletRequest request) {
         String nuxeoId = null;
         String curatorId = null;
@@ -72,7 +73,7 @@ public class IPVCallback extends AbstractResource<ResourceTypeImpl> {
         if (nuxeoId == null) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
-        IPVAsset ipvAsset = Framework.getLocalService(IpvService.class).unmarshallIPVXML(xml.getFile());
+        IPVXMLAssetMapping ipvAsset = Framework.getLocalService(IpvService.class).unmarshallIPVXML(xml.getFile());
         return Response.status(Status.OK).build();
     }
 
@@ -81,24 +82,34 @@ public class IPVCallback extends AbstractResource<ResourceTypeImpl> {
     @Path("callback")
     public Response doPostCallback(@Context HttpServletRequest request, @FormParam(value = "nuxeoId") String nuxeoId,
             @FormParam(value = "curatorId") String curatorId, @FormParam(value = "metadata") String metadata) {
+
+        log.debug("IPV sends back nuxeoId: " + nuxeoId);
+        log.debug("IPV sends back curatorId: " + curatorId);
+
         if (nuxeoId == null) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
         if (metadata == null) {
             return Response.status(Response.Status.NO_CONTENT).build();
         }
-       
-        File tmpXML = null;;
+
+        File tmpXML = null;
+        ;
         try {
             tmpXML = Framework.createTempFile("ipv", "xml");
             FileUtils.writeFile(tmpXML, metadata);
         } catch (IOException e) {
             throw new NuxeoException(e);
         }
-     
-        
+
         // unmarshall to see if works
-        IPVAsset ipvAsset = Framework.getLocalService(IpvService.class).unmarshallIPVXML(tmpXML);
+        try {
+            Framework.getLocalService(IpvService.class).attachIPVData(nuxeoId,
+                    Framework.getLocalService(IpvService.class).unmarshallIPVXML(tmpXML),
+                    Framework.getLocalService(RepositoryManager.class).getDefaultRepositoryName());
+        } catch (DocumentNotFoundException e) {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+        }
         return Response.status(Status.OK).build();
     }
 

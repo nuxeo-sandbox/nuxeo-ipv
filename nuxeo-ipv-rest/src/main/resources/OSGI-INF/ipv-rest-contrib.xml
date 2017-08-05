@@ -7,6 +7,10 @@
       <method>POST</method>
       <grantPattern>${org.nuxeo.ecm.contextPath}/site/ipv/callback</grantPattern>
     </openUrl>
+    <openUrl name="ipvCallbackFile">
+      <method>POST</method>
+      <grantPattern>${org.nuxeo.ecm.contextPath}/site/ipv/callbackfile</grantPattern>
+    </openUrl>
   </extension>
 
 </component>
