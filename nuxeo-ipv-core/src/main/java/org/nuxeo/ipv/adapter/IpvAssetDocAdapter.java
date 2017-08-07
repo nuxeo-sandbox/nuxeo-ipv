@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.bind.annotation.XmlElement;
+
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.DocumentRef;
@@ -85,15 +87,37 @@ public class IpvAssetDocAdapter {
             }
 
             if ("Audio".equals(ipvTrack.getType())) {
-                // TODO
                 Map<String, Serializable> track = new HashMap<String, Serializable>();
+                track.put("Format_settings__Endianness", ipvTrack.getFormatSettingsEndianness());
+                track.put("Format_settings__Sign", ipvTrack.getFormatSettingsSign());
+                track.put("Codec_ID", ipvTrack.getCodecID());
+                track.put("Duration", ipvTrack.getDuration());
+                track.put("Bit_rate_mode", ipvTrack.getBitRateMode());
+                track.put("Bit_rate", ipvTrack.getBitRate());
+                track.put("Channel_s_", ipvTrack.getChannelS());
+                track.put("Channel_positions", ipvTrack.getChannelPositions());
+                track.put("Sampling_rate", ipvTrack.getSamplingRate());
+                track.put("Bit_depth", ipvTrack.getBitDepth());
+                track.put("Stream_size", ipvTrack.getStreamSize());
+                track.put("Language", ipvTrack.getLanguage());
+                track.put("Encoded_date", ipvTrack.getEncodedDate());
+                track.put("Tagged_date", ipvTrack.getTaggedDate());
                 allTracks.put(audioTrackXpath, (Serializable) track);
 
             }
             if ("Other".equals(ipvTrack.getType())) {
+
                 Map<String, Serializable> track = new HashMap<String, Serializable>();
+                track.put("Type", ipvTrack.getType());
+                track.put("Format", ipvTrack.getFormat());
+                track.put("Duration", ipvTrack.getDuration());
+                track.put("Time_code_of_first_frame", ipvTrack.getTimeCodeOfFirstFrame());
+                track.put("Time_code__striped", ipvTrack.getTimeCodeStriped());
+                track.put("Language", ipvTrack.getLanguage());
+                track.put("Encoded_date", ipvTrack.getEncodedDate());
+                track.put("Tagged_date", ipvTrack.getTaggedDate());
+                
                 allTracks.put(otherTrackXpath, (Serializable) track);
-                // TODO
 
             }
 
