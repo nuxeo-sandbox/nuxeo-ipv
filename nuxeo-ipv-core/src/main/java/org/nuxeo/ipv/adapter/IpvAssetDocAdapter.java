@@ -20,6 +20,7 @@ public class IpvAssetDocAdapter {
     protected final DocumentModel doc;
 
     public String ipvAssetXpath = "ipv:ipvasset";
+    public String curatorIdXpath = "ipv:curatorId";
 
     public String generalTrackXpath = "generalTrack";
 
@@ -124,6 +125,12 @@ public class IpvAssetDocAdapter {
         }
         doc.setPropertyValue(ipvAssetXpath, (Serializable) allTracks);
 
+    }
+    
+    
+    public void setCuratorId(String curatorId){
+        doc.setPropertyValue(curatorIdXpath, curatorId);
+        
     }
 
     // Basic methods

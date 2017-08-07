@@ -21,5 +21,5 @@ public interface IpvService {
     public IPVXMLAssetMapping unmarshallIPVXML(File xmlFile);
 
     // Uses an unrestricted session
-    public void attachIPVData(String docId, IPVXMLAssetMapping ipvAssert, String repoName);
+    public void attachIPVData(String docId, String curatorId, IPVXMLAssetMapping ipvAssert, String repoName);
 }

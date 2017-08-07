@@ -99,6 +99,7 @@
   </xs:complexType>
    
   <xs:element name="ipvasset" type="ipv:ipvtracks" />
+  <xs:element name="curatorId" type="xs:string" />
   
 
 </xs:schema>

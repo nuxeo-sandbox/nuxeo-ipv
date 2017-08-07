@@ -52,7 +52,7 @@ public class TestIpvService {
         File file = org.nuxeo.common.utils.FileUtils.getResourceFileFromContext("metadata.xml");
         IPVXMLAssetMapping ipva = ipvservice.unmarshallIPVXML(file);
         assertEquals(4, ipva.getTrack().size());
-        ipvservice.attachIPVData(asset1.getId(), ipva, session.getRepositoryName());
+        ipvservice.attachIPVData(asset1.getId(), "curatorId", ipva, session.getRepositoryName());
         asset1 = session.getDocument(asset1.getRef());
         assertEquals("Variable", (String) asset1.getPropertyValue("ipv:ipvasset/generalTrack/Overall_bit_rate_mode"));
         assertEquals("4:4:4", (String) asset1.getPropertyValue("ipv:ipvasset/videoTrack/Chroma_subsampling"));

@@ -173,7 +173,7 @@ public class IpvServiceImpl extends DefaultComponent implements IpvService {
     }
 
     @Override
-    public void attachIPVData(String docId, IPVXMLAssetMapping ipvAssert, String repoName) {
+    public void attachIPVData(String docId, String curatorId, IPVXMLAssetMapping ipvAssert, String repoName) {
         CoreInstance.doPrivileged(repoName, (CoreSession session) -> {
             DocumentModel doc = session.getDocument(new IdRef(docId));
             if (!doc.hasFacet(IPV_ASSET_FACET)) {
@@ -181,6 +181,7 @@ public class IpvServiceImpl extends DefaultComponent implements IpvService {
                 doc = session.saveDocument(doc);
             }
             IpvAssetDocAdapter ipvDoc = doc.getAdapter(IpvAssetDocAdapter.class);
+            ipvDoc.setCuratorId(curatorId);
             ipvDoc.setIPVAsset(ipvAssert);
             ipvDoc.save();
         });

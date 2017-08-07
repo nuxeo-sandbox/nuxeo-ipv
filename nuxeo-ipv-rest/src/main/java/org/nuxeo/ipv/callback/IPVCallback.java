@@ -104,7 +104,7 @@ public class IPVCallback extends AbstractResource<ResourceTypeImpl> {
 
         // unmarshall to see if works
         try {
-            Framework.getLocalService(IpvService.class).attachIPVData(nuxeoId,
+            Framework.getLocalService(IpvService.class).attachIPVData(nuxeoId, curatorId,
                     Framework.getLocalService(IpvService.class).unmarshallIPVXML(tmpXML),
                     Framework.getLocalService(RepositoryManager.class).getDefaultRepositoryName());
         } catch (DocumentNotFoundException e) {
