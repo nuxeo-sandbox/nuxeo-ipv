@@ -132,6 +132,10 @@ public class IpvAssetDocAdapter {
         doc.setPropertyValue(curatorIdXpath, curatorId);
         
     }
+    public String getCuratorId() {
+        return (String) doc.getPropertyValue(curatorIdXpath);
+    }
+
 
     // Basic methods
     //

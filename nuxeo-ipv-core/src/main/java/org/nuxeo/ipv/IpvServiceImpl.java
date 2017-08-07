@@ -82,8 +82,8 @@ public class IpvServiceImpl extends DefaultComponent implements IpvService {
 
         DefaultHttpClient httpClient = new DefaultHttpClient();
         try {
-
-            HttpPost postRequest = new HttpPost("http://sandbox.aws.ipv.com:11170/ProcessEngineService/web"
+            String ipvHostUrl = Framework.getProperty("nuxeo.ipv.hostUrl", "http://sandbox.aws.ipv.com");
+            HttpPost postRequest = new HttpPost(ipvHostUrl +":11170/ProcessEngineService/web"
                     + restActionUrl);
 
             input.setContentType("application/json");
