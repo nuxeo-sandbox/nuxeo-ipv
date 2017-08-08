@@ -1,11 +1,6 @@
 package org.nuxeo.ipv.adapter;
 
-import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.xml.bind.annotation.XmlElement;
 
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
@@ -19,16 +14,15 @@ public class IpvAssetDocAdapter {
 
     protected final DocumentModel doc;
 
-    public String ipvAssetXpath = "ipv:ipvasset";
     public String curatorIdXpath = "ipv:curatorId";
 
-    public String generalTrackXpath = "generalTrack";
+    public String generalTrackPrefix = "gt_";
 
-    public String videoTrackXpath = "videoTrack";
+    public String videoTrackPrefix = "vt_";
 
-    public String audioTrackXpath = "audioTrack";
+    public String audioTrackPrefix = "at_";
 
-    public String otherTrackXpath = "otherTrack";
+    public String otherTrackPrefix = "ot_";
 
     public IpvAssetDocAdapter(DocumentModel doc) {
         this.doc = doc;
@@ -36,106 +30,95 @@ public class IpvAssetDocAdapter {
 
     public void setIPVAsset(IPVXMLAssetMapping ipvAsset) {
         @SuppressWarnings("unchecked")
-        Map<String, Serializable> allTracks = (Map<String, Serializable>) doc.getPropertyValue(ipvAssetXpath);
         List<IPVXMLAssetMapping.Track> ipVTracks = ipvAsset.getTrack();
         for (IPVXMLAssetMapping.Track ipvTrack : ipVTracks) {
             if ("General".equals(ipvTrack.getType())) {
-                Map<String, Serializable> track = new HashMap<String, Serializable>();
-                track.put("Complete_name", ipvTrack.getCompleteName());
-                track.put("Format", ipvTrack.getFormat());
-                track.put("Format_profile", ipvTrack.getFormatProfile());
-                track.put("Codec_ID", ipvTrack.getCodecID());
-                track.put("File_size", ipvTrack.getFileSize());
-                track.put("Duration", ipvTrack.getDuration());
-                track.put("Overall_bit_rate_mode", ipvTrack.getOverallBitRateMode());
-                track.put("Overall_bit_rate", ipvTrack.getOverallBitRate());
-                track.put("Encoded_date", ipvTrack.getEncodedDate());
-                track.put("Tagged_date", ipvTrack.getTaggedDate());
-                track.put("Writing_library", ipvTrack.getWritingLibrary());
-                track.put("Media_UUID", ipvTrack.getMediaUUID());
-                allTracks.put(generalTrackXpath, (Serializable) track);
+                doc.setPropertyValue(generalTrackPrefix + "Complete_name", ipvTrack.getCompleteName());
+                doc.setPropertyValue(generalTrackPrefix + "Format", ipvTrack.getFormat());
+                doc.setPropertyValue(generalTrackPrefix + "Format_profile", ipvTrack.getFormatProfile());
+                doc.setPropertyValue(generalTrackPrefix + "Codec_ID", ipvTrack.getCodecID());
+                doc.setPropertyValue(generalTrackPrefix + "File_size", ipvTrack.getFileSize());
+                doc.setPropertyValue(generalTrackPrefix + "Duration", ipvTrack.getDuration());
+                doc.setPropertyValue(generalTrackPrefix + "Overall_bit_rate_mode", ipvTrack.getOverallBitRateMode());
+                doc.setPropertyValue(generalTrackPrefix + "Overall_bit_rate", ipvTrack.getOverallBitRate());
+                doc.setPropertyValue(generalTrackPrefix + "Encoded_date", ipvTrack.getEncodedDate());
+                doc.setPropertyValue(generalTrackPrefix + "Tagged_date", ipvTrack.getTaggedDate());
+                doc.setPropertyValue(generalTrackPrefix + "Writing_library", ipvTrack.getWritingLibrary());
+                doc.setPropertyValue(generalTrackPrefix + "Media_UUID", ipvTrack.getMediaUUID());
             }
             if ("Video".equals(ipvTrack.getType())) {
-                Map<String, Serializable> track = new HashMap<String, Serializable>();
-                track.put("Format", ipvTrack.getFormat());
-                track.put("Format_version", ipvTrack.getFormatVersion());
-                track.put("Format_profile", ipvTrack.getFormatProfile());
-                track.put("Codec_ID", ipvTrack.getCodecID());
-                track.put("Duration", ipvTrack.getDuration());
-                track.put("Bit_rate_mode", ipvTrack.getBitRateMode());
-                track.put("Bit_rate", ipvTrack.getBitRate());
-                track.put("Width", ipvTrack.getWidth());
-                track.put("Clean_aperture_width", ipvTrack.getCleanApertureWidth());
-                track.put("Height", ipvTrack.getHeight());
-                track.put("Clean_aperture_height", ipvTrack.getCleanApertureHeight());
-                track.put("Display_aspect_ratio", ipvTrack.getDisplayAspectRatio());
-                track.put("Clean_aperture_display_aspect_ratio", ipvTrack.getCleanApertureDisplayAspectRatio());
-                track.put("Frame_rate_mode", ipvTrack.getFrameRateMode());
-                track.put("Frame_rate", ipvTrack.getFrameRate());
-                track.put("Chroma_subsampling", ipvTrack.getChromaSubsampling());
-                track.put("Scan_type", ipvTrack.getScanType());
-                track.put("Bits__Pixel_Frame_", ipvTrack.getBitsPixelFrame());
-                track.put("Stream_size", ipvTrack.getStreamSize());
-                track.put("Writing_library", ipvTrack.getWritingLibrary());
-                track.put("Language", ipvTrack.getLanguage());
-                track.put("Encoded_date", ipvTrack.getEncodedDate());
-                track.put("Tagged_date", ipvTrack.getTaggedDate());
-                track.put("Color_primaries", ipvTrack.getColorPrimaries());
-                track.put("Transfer_characteristics", ipvTrack.getTransferCharacteristics());
-                track.put("Matrix_coefficients", ipvTrack.getMatrixCoefficients());
-                allTracks.put(videoTrackXpath, (Serializable) track);
+                doc.setPropertyValue(videoTrackPrefix + "Format", ipvTrack.getFormat());
+                doc.setPropertyValue(videoTrackPrefix + "Format_version", ipvTrack.getFormatVersion());
+                doc.setPropertyValue(videoTrackPrefix + "Format_profile", ipvTrack.getFormatProfile());
+                doc.setPropertyValue(videoTrackPrefix + "Codec_ID", ipvTrack.getCodecID());
+                doc.setPropertyValue(videoTrackPrefix + "Duration", ipvTrack.getDuration());
+                doc.setPropertyValue(videoTrackPrefix + "Bit_rate_mode", ipvTrack.getBitRateMode());
+                doc.setPropertyValue(videoTrackPrefix + "Bit_rate", ipvTrack.getBitRate());
+                doc.setPropertyValue(videoTrackPrefix + "Width", ipvTrack.getWidth());
+                doc.setPropertyValue(videoTrackPrefix + "Clean_aperture_width", ipvTrack.getCleanApertureWidth());
+                doc.setPropertyValue(videoTrackPrefix + "Height", ipvTrack.getHeight());
+                doc.setPropertyValue(videoTrackPrefix + "Clean_aperture_height", ipvTrack.getCleanApertureHeight());
+                doc.setPropertyValue(videoTrackPrefix + "Display_aspect_ratio", ipvTrack.getDisplayAspectRatio());
+                doc.setPropertyValue(videoTrackPrefix + "Clean_aperture_display_aspect_ratio",
+                        ipvTrack.getCleanApertureDisplayAspectRatio());
+                doc.setPropertyValue(videoTrackPrefix + "Frame_rate_mode", ipvTrack.getFrameRateMode());
+                doc.setPropertyValue(videoTrackPrefix + "Frame_rate", ipvTrack.getFrameRate());
+                doc.setPropertyValue(videoTrackPrefix + "Chroma_subsampling", ipvTrack.getChromaSubsampling());
+                doc.setPropertyValue(videoTrackPrefix + "Scan_type", ipvTrack.getScanType());
+                doc.setPropertyValue(videoTrackPrefix + "Bits__Pixel_Frame_", ipvTrack.getBitsPixelFrame());
+                doc.setPropertyValue(videoTrackPrefix + "Stream_size", ipvTrack.getStreamSize());
+                doc.setPropertyValue(videoTrackPrefix + "Writing_library", ipvTrack.getWritingLibrary());
+                doc.setPropertyValue(videoTrackPrefix + "Language", ipvTrack.getLanguage());
+                doc.setPropertyValue(videoTrackPrefix + "Encoded_date", ipvTrack.getEncodedDate());
+                doc.setPropertyValue(videoTrackPrefix + "Tagged_date", ipvTrack.getTaggedDate());
+                doc.setPropertyValue(videoTrackPrefix + "Color_primaries", ipvTrack.getColorPrimaries());
+                doc.setPropertyValue(videoTrackPrefix + "Transfer_characteristics",
+                        ipvTrack.getTransferCharacteristics());
+                doc.setPropertyValue(videoTrackPrefix + "Matrix_coefficients", ipvTrack.getMatrixCoefficients());
 
             }
 
             if ("Audio".equals(ipvTrack.getType())) {
-                Map<String, Serializable> track = new HashMap<String, Serializable>();
-                track.put("Format_settings__Endianness", ipvTrack.getFormatSettingsEndianness());
-                track.put("Format_settings__Sign", ipvTrack.getFormatSettingsSign());
-                track.put("Codec_ID", ipvTrack.getCodecID());
-                track.put("Duration", ipvTrack.getDuration());
-                track.put("Bit_rate_mode", ipvTrack.getBitRateMode());
-                track.put("Bit_rate", ipvTrack.getBitRate());
-                track.put("Channel_s_", ipvTrack.getChannelS());
-                track.put("Channel_positions", ipvTrack.getChannelPositions());
-                track.put("Sampling_rate", ipvTrack.getSamplingRate());
-                track.put("Bit_depth", ipvTrack.getBitDepth());
-                track.put("Stream_size", ipvTrack.getStreamSize());
-                track.put("Language", ipvTrack.getLanguage());
-                track.put("Encoded_date", ipvTrack.getEncodedDate());
-                track.put("Tagged_date", ipvTrack.getTaggedDate());
-                allTracks.put(audioTrackXpath, (Serializable) track);
+                doc.setPropertyValue(audioTrackPrefix + "Format_settings__Endianness",
+                        ipvTrack.getFormatSettingsEndianness());
+                doc.setPropertyValue(audioTrackPrefix + "Format_settings__Sign", ipvTrack.getFormatSettingsSign());
+                doc.setPropertyValue(audioTrackPrefix + "Codec_ID", ipvTrack.getCodecID());
+                doc.setPropertyValue(audioTrackPrefix + "Duration", ipvTrack.getDuration());
+                doc.setPropertyValue(audioTrackPrefix + "Bit_rate_mode", ipvTrack.getBitRateMode());
+                doc.setPropertyValue(audioTrackPrefix + "Bit_rate", ipvTrack.getBitRate());
+                doc.setPropertyValue(audioTrackPrefix + "Channel_s_", ipvTrack.getChannelS());
+                doc.setPropertyValue(audioTrackPrefix + "Channel_positions", ipvTrack.getChannelPositions());
+                doc.setPropertyValue(audioTrackPrefix + "Sampling_rate", ipvTrack.getSamplingRate());
+                doc.setPropertyValue(audioTrackPrefix + "Bit_depth", ipvTrack.getBitDepth());
+                doc.setPropertyValue(audioTrackPrefix + "Stream_size", ipvTrack.getStreamSize());
+                doc.setPropertyValue(audioTrackPrefix + "Language", ipvTrack.getLanguage());
+                doc.setPropertyValue(audioTrackPrefix + "Encoded_date", ipvTrack.getEncodedDate());
+                doc.setPropertyValue(audioTrackPrefix + "Tagged_date", ipvTrack.getTaggedDate());
 
             }
             if ("Other".equals(ipvTrack.getType())) {
-
-                Map<String, Serializable> track = new HashMap<String, Serializable>();
-                track.put("Type", ipvTrack.getType());
-                track.put("Format", ipvTrack.getFormat());
-                track.put("Duration", ipvTrack.getDuration());
-                track.put("Time_code_of_first_frame", ipvTrack.getTimeCodeOfFirstFrame());
-                track.put("Time_code__striped", ipvTrack.getTimeCodeStriped());
-                track.put("Language", ipvTrack.getLanguage());
-                track.put("Encoded_date", ipvTrack.getEncodedDate());
-                track.put("Tagged_date", ipvTrack.getTaggedDate());
-                
-                allTracks.put(otherTrackXpath, (Serializable) track);
-
+                doc.setPropertyValue(otherTrackPrefix + "Type", ipvTrack.getType());
+                doc.setPropertyValue(otherTrackPrefix + "Format", ipvTrack.getFormat());
+                doc.setPropertyValue(otherTrackPrefix + "Duration", ipvTrack.getDuration());
+                doc.setPropertyValue(otherTrackPrefix + "Time_code_of_first_frame", ipvTrack.getTimeCodeOfFirstFrame());
+                doc.setPropertyValue(otherTrackPrefix + "Time_code__striped", ipvTrack.getTimeCodeStriped());
+                doc.setPropertyValue(otherTrackPrefix + "Language", ipvTrack.getLanguage());
+                doc.setPropertyValue(otherTrackPrefix + "Encoded_date", ipvTrack.getEncodedDate());
+                doc.setPropertyValue(otherTrackPrefix + "Tagged_date", ipvTrack.getTaggedDate());
             }
 
         }
-        doc.setPropertyValue(ipvAssetXpath, (Serializable) allTracks);
 
     }
-    
-    
-    public void setCuratorId(String curatorId){
+
+    public void setCuratorId(String curatorId) {
         doc.setPropertyValue(curatorIdXpath, curatorId);
-        
+
     }
+
     public String getCuratorId() {
         return (String) doc.getPropertyValue(curatorIdXpath);
     }
-
 
     // Basic methods
     //

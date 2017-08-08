@@ -54,8 +54,8 @@ public class TestIpvService {
         assertEquals(4, ipva.getTrack().size());
         ipvservice.attachIPVData(asset1.getId(), "curatorId", ipva, session.getRepositoryName());
         asset1 = session.getDocument(asset1.getRef());
-        assertEquals("Variable", (String) asset1.getPropertyValue("ipv:ipvasset/generalTrack/Overall_bit_rate_mode"));
-        assertEquals("4:4:4", (String) asset1.getPropertyValue("ipv:ipvasset/videoTrack/Chroma_subsampling"));
+        assertEquals("Variable", (String) asset1.getPropertyValue("ipv:gt_Overall_bit_rate_mode"));
+        assertEquals("4:4:4", (String) asset1.getPropertyValue("ipv:vt_Chroma_subsampling"));
 
     }
 
